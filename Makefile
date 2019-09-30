@@ -1,9 +1,6 @@
 .PHONY: package-assets
 
-assets:
-	mkdir -p ./assets
-
-assets/wasm_exec.js:assets
+assets/wasm_exec.js:
 	mkdir -p ./assets/javascript
 	cp "$(shell go env GOROOT)/misc/wasm/wasm_exec.js" ./assets/javascript/wasm_exec.js
 

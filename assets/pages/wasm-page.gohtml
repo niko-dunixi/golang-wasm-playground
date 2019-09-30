@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{.Title}}</title>
-    <link rel="stylesheet" type="text/css" href="/css/default.css">
-    <script type="application/javascript" src="/javascript/wasm_exec.js"></script>
+    <title>{{.Name}}</title>
+    <link rel="stylesheet" type="text/css" href="/resources/css/default.css">
+    <script type="application/javascript" src="/resources/javascript/wasm_exec.js"></script>
     <script type="application/javascript">
         async function run(fileUrl) {
             try {
@@ -18,7 +18,7 @@
             }
         }
 
-        setTimeout(() => run(`{{.WasmFileUrl}}`));
+        setTimeout(() => run(`{{.WasmFile}}`));
     </script>
 </head>
 <body>

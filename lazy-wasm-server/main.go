@@ -24,7 +24,7 @@ func main() {
 	router.HandleFunc("/resources/javascript/{javascript}", JavaScriptHandler)
 	router.HandleFunc("/resources/css/{css}", CssHandler)
 	router.HandleFunc("/resources/wasm/{wasm}", WasmHandler)
-	router.HandleFunc("/page/{page}", ExperimentHandler)
+	router.HandleFunc("/page/{page}", PageHandler)
 	router.HandleFunc("/", HomeHandler)
 
 	//http.Handle("/", router)
@@ -70,6 +70,27 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func PageHandler(w http.ResponseWriter, r *http.Request) {
+	t, err := loadTemplate("pages/wasm-page.gohtml")
+	if err != nil {
+		w.WriteHeader(500)
+		_, _ = w.Write([]byte(err.Error()))
+	}
+	if t == nil {
+		return
+	}
+
+	wasmPage := WasmPage{
+		Name:     "Test",
+		WasmFile: "asdf.wasm",
+	}
+	if err = t.Execute(w, wasmPage); err != nil {
+		log.Println(err)
+		w.WriteHeader(500)
+		_, _ = w.Write([]byte(err.Error()))
+	}
+}
+
 func CssHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	file := vars["css"]
@@ -77,15 +98,16 @@ func CssHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func JavaScriptHandler(w http.ResponseWriter, r *http.Request) {
-	passAssetToRequest("javascript/wasm_exec.js", "application/javascript", w)
+	vars := mux.Vars(r)
+	file := vars["javascript"]
+	passAssetToRequest("javascript/"+file, "application/javascript", w)
 
 }
 
 func WasmHandler(w http.ResponseWriter, r *http.Request) {
-}
-
-func ExperimentHandler(w http.ResponseWriter, r *http.Request) {
-
+	vars := mux.Vars(r)
+	file := vars["wasm"]
+	passAssetToRequest("wasm/"+file, "application/wasm", w)
 }
 
 func passAssetToRequest(name, mime string, w http.ResponseWriter) {

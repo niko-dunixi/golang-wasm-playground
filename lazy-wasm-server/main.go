@@ -18,7 +18,7 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/resources/javascript/{javascript}", JavaScriptHandler)
 	router.HandleFunc("/resources/css/{css}", CssHandler)
-	router.HandleFunc("/resources/wasm/{wasm}", WasmHandler)
+	router.HandleFunc("/wasm/{wasm}", WasmHandler)
 	router.HandleFunc("/page/{page}", PageHandler)
 	router.HandleFunc("/", HomeHandler)
 

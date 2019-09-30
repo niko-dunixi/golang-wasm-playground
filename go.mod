@@ -1,4 +1,4 @@
-module github.com/paul-nelson-baker/base-rando-project
+module github.com/paul-nelson-baker/golang-wasm-playground
 
 go 1.13
 

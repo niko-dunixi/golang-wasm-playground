@@ -18,7 +18,7 @@
             }
         }
 
-        const wasmFile = `/wasm/{{.WasmFile}}`;
+        const wasmFile = "/wasm/" + {{.WasmFile}};
         console.debug(`wasm file to load:`, wasmFile);
         setTimeout(() => run(wasmFile));
     </script>

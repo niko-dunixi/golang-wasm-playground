@@ -11,12 +11,7 @@ import (
 )
 
 var (
-	Pages = []WasmPage{
-		{
-			Name:     "Test",
-			WasmFile: "File.wasm",
-		},
-	}
+	Pages = []string{"a.wasm", "b.wasm"}
 )
 
 func main() {
@@ -40,12 +35,10 @@ func main() {
 }
 
 type HomePage struct {
-	Title string
-	Pages []WasmPage
+	Pages []string
 }
 
 type WasmPage struct {
-	Name     string
 	WasmFile string
 }
 
@@ -60,7 +53,6 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	homePage := HomePage{
-		Title: "Type Safe Home",
 		Pages: Pages,
 	}
 	if err = t.Execute(w, homePage); err != nil {
@@ -79,12 +71,12 @@ func PageHandler(w http.ResponseWriter, r *http.Request) {
 	if t == nil {
 		return
 	}
-
-	wasmPage := WasmPage{
-		Name:     "Test",
-		WasmFile: "asdf.wasm",
+	vars := mux.Vars(r)
+	wasmFile := vars["page"]
+	page := WasmPage{
+		WasmFile: wasmFile,
 	}
-	if err = t.Execute(w, wasmPage); err != nil {
+	if err = t.Execute(w, page); err != nil {
 		log.Println(err)
 		w.WriteHeader(500)
 		_, _ = w.Write([]byte(err.Error()))
@@ -101,7 +93,6 @@ func JavaScriptHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	file := vars["javascript"]
 	passAssetToRequest("javascript/"+file, "application/javascript", w)
-
 }
 
 func WasmHandler(w http.ResponseWriter, r *http.Request) {
@@ -123,8 +114,8 @@ func passAssetToRequest(name, mime string, w http.ResponseWriter) {
 		_, _ = w.Write([]byte(err.Error()))
 		return
 	}
-	_, _ = w.Write(bytes)
 	w.Header().Add("Content-Type", mime)
+	_, _ = w.Write(bytes)
 }
 
 func loadTemplate(name string) (*template.Template, error) {

@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gorilla/mux"
-	base "github.com/paul-nelson-baker/base-rando-project"
+	playground "github.com/paul-nelson-baker/golang-wasm-playground"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -102,7 +102,7 @@ func WasmHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func passAssetToRequest(name, mime string, w http.ResponseWriter) {
-	file, err := base.Assets.Open(name)
+	file, err := playground.Assets.Open(name)
 	if err != nil {
 		w.WriteHeader(500)
 		_, _ = w.Write([]byte(err.Error()))
@@ -119,7 +119,7 @@ func passAssetToRequest(name, mime string, w http.ResponseWriter) {
 }
 
 func loadTemplate(name string) (*template.Template, error) {
-	file, err := base.Assets.Open(name)
+	file, err := playground.Assets.Open(name)
 	if err != nil {
 		return nil, err
 	}

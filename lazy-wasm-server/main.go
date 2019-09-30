@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	Pages = []string{"a.wasm", "b.wasm"}
+	Pages = []string{"simple-cat-example.wasm"}
 )
 
 func main() {

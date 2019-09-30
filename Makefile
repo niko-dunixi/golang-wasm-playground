@@ -4,9 +4,10 @@ assets:
 	mkdir -p ./assets
 
 assets/wasm_exec.js:assets
-	cp "$(shell go env GOROOT)/misc/wasm/wasm_exec.js" ./assets/wasm_exec.js
+	mkdir -p ./assets/javascript
+	cp "$(shell go env GOROOT)/misc/wasm/wasm_exec.js" ./assets/javascript/wasm_exec.js
 
-assets_vfsdata.go:assets/wasm_exec.js
+assets_vfsdata.go:assets/javascript/wasm_exec.js
 	go run assets-generator.go
 
 bin:

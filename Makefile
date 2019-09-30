@@ -1,14 +1,18 @@
 .PHONY: package-assets
 
-# This is only needed if new assets are
-# created or existing ones modified
-package-assets:
+assets:
+	mkdir -p ./assets
+
+assets/wasm_exec.js:assets
+	cp "$(shell go env GOROOT)/misc/wasm/wasm_exec.js" ./assets/wasm_exec.js
+
+assets_vfsdata.go:assets/wasm_exec.js
 	go run assets-generator.go
 
 bin:
 	mkdir -p ./bin
 
-bin/lazy-wasm-server:bin
+bin/lazy-wasm-server:assets_vfsdata.go bin
 	go build -o bin ./lazy-wasm-server
 
 clean:

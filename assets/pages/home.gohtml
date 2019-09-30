@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" type="text/css" href="/resources/css/default.css">
+</head>
+<body>
+{{range $index, $element := .Pages}}
+    <div class="example">
+        <a href="/page/{{$element.Name}}">{{$element.Name}}</a>
+    </div>
+{{end}}
+</body>
+</html>

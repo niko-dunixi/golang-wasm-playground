@@ -11,6 +11,7 @@ import (
 )
 
 var (
+	// I should figure out if there's an easy way to fill out this data that isn't overly complicated
 	Pages = []string{"simple-cat-example.wasm"}
 	// Stub this out to prevent false compiler errors. It's actually initialized in `assets_vfsdata.go`.
 	Assets http.FileSystem

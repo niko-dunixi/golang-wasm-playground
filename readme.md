@@ -14,3 +14,4 @@ Playground. No promises made, expect scrapped knees
 - https://www.reddit.com/r/proceduralgeneration/comments/d48gdg/procedural_level_generator_for_my_js13k_bounce/
 - https://www.reddit.com/r/proceduralgeneration/comments/d333ow/more_procedural_ink_source_code/
 - https://www.reddit.com/r/proceduralgeneration/comments/d2jkr0/procedural_ink_test/
+- https://www.reddit.com/r/proceduralgeneration/comments/d9he9n/heroes_of_might_and_magic_iii_map_generation/

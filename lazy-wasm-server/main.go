@@ -25,8 +25,6 @@ func main() {
 	router.HandleFunc("/page/{page}", PageHandler)
 	router.HandleFunc("/", HomeHandler)
 
-	//http.Handle("/", router)
-
 	srv := &http.Server{
 		Handler: router,
 		Addr:    "127.0.0.1:8000",

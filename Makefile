@@ -9,7 +9,11 @@ assets/wasm/simple-cat-example.wasm:
 	mkdir -p ./assets/wasm/
 	GOOS=js GOARCH=wasm go build -o assets/wasm/simple-cat-example.wasm ./simple-cat-example
 
-assets/wasm/all:assets/wasm/simple-cat-example.wasm
+assets/wasm/checkerboard.wasm:
+	mkdir -p ./assets/wasm/
+	GOOS=js GOARCH=wasm go build -o assets/wasm/checkerboard.wasm ./cellular-automata/checkerboard
+
+assets/wasm/all:assets/wasm/simple-cat-example.wasm assets/wasm/checkerboard.wasm
 	echo "Built all WASM files"
 
 assets_vfsdata.go:assets/javascript/wasm_exec.js assets/wasm/all

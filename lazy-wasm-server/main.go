@@ -12,7 +12,7 @@ import (
 
 var (
 	// I should figure out if there's an easy way to fill out this data that isn't overly complicated
-	Pages = []string{"simple-cat-example.wasm"}
+	Pages = []string{"simple-cat-example.wasm", "checkerboard.wasm"}
 	// Stub this out to prevent false compiler errors. It's actually initialized in `assets_vfsdata.go`.
 	Assets http.FileSystem
 )
@@ -27,7 +27,7 @@ func main() {
 
 	srv := &http.Server{
 		Handler: router,
-		Addr:    "127.0.0.1:8000",
+		Addr:    "127.0.0.1:1337",
 		// Good practice: enforce timeouts for servers you create!
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,

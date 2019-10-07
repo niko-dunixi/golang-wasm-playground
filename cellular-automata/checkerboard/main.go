@@ -25,7 +25,7 @@ func main() {
 		canvasCtx.Set("fillStyle", "red")
 		canvasCtx.Set("strokeStyle", "red")
 		canvasCtx.Set("lineWidth", 5)
-		fmt.Printf("Renderer called: %s %s %f",
+		fmt.Printf("Renderer called: %s %s %f\n",
 			canvasCtx.Get("fillStyle").String(), canvasCtx.Get("strokeStyle").String(), canvasCtx.Get("lineWidth").Float())
 		{
 			squareWidth := width / 8

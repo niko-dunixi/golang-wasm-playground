@@ -22,17 +22,15 @@ func main() {
 	renderer = js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		width, height := getWindowInnerSize(window)
 		canvasCtx.Call("clearRect", 0, 0, width, height)
-		fmt.Printf("Rendering with: Canvas Size %fx%f  fillStyle=%s strokeStyle%s lineWidth=%f\n",
+		fmt.Printf("Rendering with: Canvas Size %fx%f  fillStyle=%s strokeStyle=%s lineWidth=%f\n",
 			width, height,
 			canvasCtx.Get("fillStyle").String(),
 			canvasCtx.Get("strokeStyle").String(),
 			canvasCtx.Get("lineWidth").Float(),
 		)
-		canvasCtx.Call("beginPath")
 		canvasCtx.Set("fillStyle", "red")
 		canvasCtx.Set("strokeStyle", "red")
 		canvasCtx.Set("lineWidth", 5)
-
 		squareWidth := width / 8
 		squareHeight := height / 8
 		offsetWidth := squareWidth * 0.15
@@ -47,7 +45,6 @@ func main() {
 				}
 			}
 		}
-		canvasCtx.Call("closePath")
 		window.Call("requestAnimationFrame", renderer)
 		return nil
 	})

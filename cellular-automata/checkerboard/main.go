@@ -20,7 +20,7 @@ func main() {
 
 	var renderer js.Func
 	renderer = js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		width, height := getWindowSize(window)
+		width, height := getWindowInnerSize(window)
 		canvasCtx.Call("clearRect", 0, 0, width, height)
 		canvasCtx.Set("fillStyle", "red")
 		canvasCtx.Set("strokeStyle", "red")
@@ -51,14 +51,14 @@ func main() {
 	<-runForever
 }
 
-func getWindowSize(window js.Value) (float64, float64) {
+func getWindowInnerSize(window js.Value) (float64, float64) {
 	width := window.Get("innerWidth").Float()
 	height := window.Get("innerHeight").Float()
 	return width, height
 }
 
 func updateCanvasSize(window js.Value, canvas js.Value) (float64, float64) {
-	width, height := getWindowSize(window)
+	width, height := getWindowInnerSize(window)
 	canvas.Set("width", width)
 	canvas.Set("height", height)
 	return width, height

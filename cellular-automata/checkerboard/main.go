@@ -17,14 +17,6 @@ func main() {
 	}
 	setCanvasStyle()
 
-	window.Call("addEventListener", "resize", js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		width, height := updateCanvasSize(window, canvas)
-		fmt.Printf("resize triggered: %f x %f\n", width, height)
-		setCanvasStyle()
-		return nil
-	}))
-	_, _ = updateCanvasSize(window, canvas)
-
 	var renderer js.Func
 	renderer = js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		width, height := getWindowInnerSize(window)
@@ -49,10 +41,18 @@ func main() {
 				}
 			}
 		}
-		window.Call("requestAnimationFrame", renderer)
 		return nil
 	})
 	window.Call("requestAnimationFrame", renderer)
+
+	window.Call("addEventListener", "resize", js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		width, height := updateCanvasSize(window, canvas)
+		fmt.Printf("resize triggered: %f x %f\n", width, height)
+		setCanvasStyle()
+		window.Call("requestAnimationFrame", renderer)
+		return nil
+	}))
+	_, _ = updateCanvasSize(window, canvas)
 
 	<-runForever
 }

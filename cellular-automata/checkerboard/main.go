@@ -9,14 +9,21 @@ func main() {
 	runForever := make(chan bool)
 	window := js.Global()
 	canvas := window.Get("document").Call("getElementById", "canvas")
+	canvasCtx := canvas.Call("getContext", "2d")
+	setCanvasStyle := func() {
+		canvasCtx.Set("fillStyle", "red")
+		canvasCtx.Set("strokeStyle", "red")
+		canvasCtx.Set("lineWidth", 5)
+	}
+	setCanvasStyle()
+
 	window.Call("addEventListener", "resize", js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		width, height := updateCanvasSize(window, canvas)
 		fmt.Printf("resize triggered: %f x %f\n", width, height)
+		setCanvasStyle()
 		return nil
 	}))
 	_, _ = updateCanvasSize(window, canvas)
-
-	canvasCtx := canvas.Call("getContext", "2d")
 
 	var renderer js.Func
 	renderer = js.FuncOf(func(this js.Value, args []js.Value) interface{} {
@@ -28,9 +35,6 @@ func main() {
 			canvasCtx.Get("strokeStyle").String(),
 			canvasCtx.Get("lineWidth").Float(),
 		)
-		canvasCtx.Set("fillStyle", "red")
-		canvasCtx.Set("strokeStyle", "red")
-		canvasCtx.Set("lineWidth", 5)
 		squareWidth := width / 8
 		squareHeight := height / 8
 		offsetWidth := squareWidth * 0.15
